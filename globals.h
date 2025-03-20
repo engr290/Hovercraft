@@ -29,5 +29,7 @@ typedef enum {
 
 extern float imu_data[12];
 extern float system_data[9];
+extern unsigned long timer_count;
+
 
 #endif
