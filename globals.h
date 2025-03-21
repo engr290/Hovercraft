@@ -25,7 +25,9 @@ typedef enum {
 #define Gravity 9.80665
 #define ACCEL_SCALE 16384.0  // ±2g range
 #define GYRO_SCALE 131.0     // ±250°/s range
-
+#define WIDTH 52 //50-55cm so I chosen the average
+#define LENGTH 235// in cm
+#define TURN 6// based on the maze, it's six if goes straight, may need to alter while testing perhaps
 
 extern float imu_data[12];
 extern float system_data[9];
