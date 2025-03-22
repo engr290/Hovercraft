@@ -1,9 +1,11 @@
 
 #include "peripherals.h"
-
 //---------------------------------------------------------------------------
 //----------------------------------Servos-----------------------------------
 //---------------------------------------------------------------------------
+
+bool servo_mode = true;
+
 
 //Angle of the servos from 0 to 180.
 void init_servo_0() {
@@ -20,6 +22,7 @@ void init_servo_1() {
     ICR1 = 39999; // Set TOP for 50Hz PWM frequency
     OCR1A = 3000; // // Set the pulse width for Servo 1 (middle position) - 0 to 39999
 }
+
 
 void set_servo_0(uint16_t angle) {
   // Clamp angle from 0 to 180
