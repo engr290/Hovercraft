@@ -5,8 +5,24 @@
 
 int main(){
 
-  while(1) {
-    
+  switch(system_state) {
+    case Init:
+      
+
+      break;
+    case Forward:
+
+
+      break;
+    case UTurn:
+
+      break;
+    case Adjust:
+
+      break;
+    case TurnOff
+
+      break;
   }
 
 }

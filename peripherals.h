@@ -1,4 +1,6 @@
 
+#include "globals.h"
+
 // Servo
 // Todo
 // Add pins and timers in comments
