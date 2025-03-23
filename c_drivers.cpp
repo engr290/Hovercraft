@@ -28,3 +28,10 @@ uint64_t get_current_time()
 {
   return timer_count;
 }
+
+void c_delay_milli(unsigned long ms)
+{
+ uint64_t target = c_current_time() + ms;
+
+ while(c_current_time() < target);
+}
