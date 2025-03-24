@@ -24,7 +24,7 @@ void c_init_timer2()//PLACE C TIMER2
   TIMSK2 = (1 << OCIE2A); // Enable Timer2 Compare A interrupt
 }
 
-uint64_t get_current_time()
+uint64_t c_current_time()
 {
   return timer_count;
 }
