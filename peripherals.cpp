@@ -12,6 +12,7 @@ bool servo_mode = true;
 // Angle of the servos from -90 to 90.
 // Both servos on timer 1
 
+// OCA2
 void init_servo_0() {
     DDRB |= (1 << PB1); // Set PB1 (OC1A) as output for PWM
     TCCR1A |= (1 << WGM11) | (1 << COM1A1); // Fast PWM, non-inverting mode, timer 1
@@ -20,6 +21,7 @@ void init_servo_0() {
     OCR1A = 3000; // Set the pulse width for Servo 0 (middle position) - 0 to 39999
 }
 
+// OCB2
 void init_servo_1() {
     DDRB |= (1 << PB2); // Set PB2 (OC1B) as output for PWM
     TCCR1A |= (1 << WGM11) | (1 << COM1B1); // Fast PWM, non-inverting mode, timer 1
@@ -28,6 +30,7 @@ void init_servo_1() {
     OCR1B = 3000; // Set the pulse width for Servo 1 (middle position) - 0 to 39999
 }
 
+// OCA2
 void set_servo_0(int8_t angle) {
     //convert from -90,90 to 0,180
     angle +=90;
@@ -42,6 +45,7 @@ void set_servo_0(int8_t angle) {
     OCR1A = pulseWidth * 2; // Set the pulse width for Servo 1 (middle position) - 0 to 39999
 }
 
+// OCB2
 void set_servo_1(int8_t angle) {
     //convert from -90,90 to 0,180
     angle +=90;
@@ -61,8 +65,9 @@ void set_servo_1(int8_t angle) {
 //---------------------------------------------------------------------------
 
 // All fan speeds are based on a percentage.
-// Thrust fans (1 and 2) use timer 0
+// Thrust fans (1 and 2)
 
+// OC1A
 void init_fan_0(){
     DDRD |= (1 << PD6); // Set PD6 (OC0A) 
 
@@ -73,6 +78,7 @@ void init_fan_0(){
     OCR0A = 0; // Fan 2 (0-255)
 }
 
+// OC0A
 void init_fan_1(){
     DDRD |= (1 << PD5); // Set PD5 (OC0B) as output
 
@@ -83,20 +89,24 @@ void init_fan_1(){
     OCR0B = 0; // Fan 1 (0-255)
 }
 
+// OC0B
 void init_fan_2(){
     // lift fan => software pwm
 }
 
+// OC1A
 void set_fan_0(uint8_t percentages){
     //convert percentage to fan duty cycle.
     OCR0A = (percentages * 255) /100;
 }
 
+// OC0A
 void set_fan_1(uint8_t percentages){
     //convert percentage to fan duty cycle.
     OCR0B = (percentages * 255) /100; 
 }
 
+// OC0B
 void set_fan_2(uint8_t percentages){
     // lift fan => software pwm
 }
