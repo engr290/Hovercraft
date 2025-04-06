@@ -4,16 +4,23 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <stdio.h>
 
 
-typedef enum {
-	c_VCC,
-	c_AREF,
-	c_internal_1_1
-} c_ADC_ref;
+// typedef enum {
+// 	c_VCC,
+// 	c_AREF,
+// 	c_internal_1_1
+// } c_ADC_ref;
 
 
-#define F_CPU 16000000UL
+// #define F_CPU 16000000UL
+
+
+// Global variables
+extern float imu_data[12];
+extern float yaw_angle;
+extern volatile unsigned long system_time;
 
 // IMU
 #define IMU_ADDR  0x68  // 7 bit address
@@ -21,13 +28,10 @@ typedef enum {
 #define IMU_PWR_REG 0x6B
 #define IMU_X_ACCEL_REG 0x3B // It is the x acceleration and rest of the registers are increamentally after it
 #define IMU_GYTO_X 0x43
+#define IMU_250 0x00
 #define DEAD_ZONE 1.0
 #define Gravity 9.80665
 #define ACCEL_SCALE 16384.0  // ±2g range
 #define GYRO_SCALE 131.0     // ±250°/s range
-
-
-extern float imu_data[12];
-extern float system_data[9];
 
 #endif
