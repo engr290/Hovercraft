@@ -23,6 +23,9 @@ void set_lift(bool on); // PD7
 void init_imu();
 void get_imu_data();
 
+void init_forward_ir();
+uint16_t read_forward_ir();
+
 void c_delay(uint32_t ms);
 
 #endif
