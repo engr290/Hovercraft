@@ -21,6 +21,7 @@
 extern float imu_data[12];
 extern float yaw_angle;
 extern volatile unsigned long system_time;
+extern volatile bool top_ir_triggered;
 
 // IMU
 #define IMU_ADDR  0x68  // 7 bit address
@@ -34,5 +35,7 @@ extern volatile unsigned long system_time;
 #define Gravity 980.665
 #define ACCEL_SCALE 16384.0  // ±2g range
 #define GYRO_SCALE 131.0     // ±250°/s range
+#define GP2Y0E03_ADDRESS 0x80
+#define GP2Y0E03_DISTANCE_REGISTER 0x5E
 
 #endif

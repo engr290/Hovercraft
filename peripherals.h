@@ -23,8 +23,11 @@ void set_lift(bool on); // PD7
 void init_imu();
 void get_imu_data();
 
-void init_forward_ir();
-uint16_t read_forward_ir();
+void init_side_ir();
+uint16_t read_side_ir();
+
+void init_top_ir();
+bool read_top_ir();
 
 void c_delay(uint32_t ms);
 

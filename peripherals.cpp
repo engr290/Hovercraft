@@ -133,6 +133,22 @@ void get_one_round_IMU_data() {
 
 }
 
+void init_side_ir(){
+  ADMUX = (ADMUX & 0x3F);  // reset REFS1 and REFS0 to 0
+  ADMUX |= (1 << REFS0);  // REFS1 = 0, REFS0 = 1
+  ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+  ADMUX = (ADMUX & 0xF0) | (0 & 0x07);
+}
+
+
+uint16_t read_side_ir(){
+  ADCSRA |= (1 << ADSC);   // start reading
+
+	// i is there for timeout
+	for(int i = 0; i < 10000 && (ADCSRA & (1 << ADSC)); i++);
+	
+	return ADC;
+}
 
 // TODO
 // Check the stop ones
@@ -206,4 +222,20 @@ uint16_t read_forward_ir(){
 	for(int i = 0; i < 10000 && (ADCSRA & (1 << ADSC)); i++);
 	
 	return ADC;
+}
+
+
+void init_top_ir(){
+  DDRD &= ~(1 << PD2);
+  PORTD |= (1 << PD2);
+  // Set INT0 to trigger on rising edge
+  EICRA |= (1 << ISC01) | (1 << ISC00);
+
+  // Enable INT0
+  EIMSK |= (1 << INT0);
+
+}
+
+bool read_top_ir(){
+  return PIND & (1 << PD2);
 }

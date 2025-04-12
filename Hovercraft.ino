@@ -5,6 +5,8 @@
 
 float system_data[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+// 350 side
+
 int main(){
 
   cli();
@@ -16,7 +18,7 @@ int main(){
   c_i2c_init();
   init_imu();
   init_lift();
-  init_forward_ir();
+  init_side_ir();
 
   set_servo_A(0);
   set_servo_B(0);
@@ -26,25 +28,26 @@ int main(){
   set_fan_A(0); // set both fans full power
   set_fan_B(0);
 
-  c_delay(500);
+  c_delay(1000);
   Serial.begin(9600);
   Serial.println("starting");
 
-
-  
   unsigned long prev_time = system_time;
 
-  get_imu_data();
 
   c_delay(1000);
 
-  set_fan_A(220);
+  get_imu_data();
+
+  set_fan_A(250);
   set_fan_B(220);
 
   int stationary_count = 0;
   
   int8_t yaw_fix = 1;
   uint16_t turns_done = 0;
+
+  
   
   while(1) {
 
@@ -62,15 +65,29 @@ int main(){
       stationary_count = 0;
     }
 
-    Serial.println(stationary_count);
+    // Serial.println(stationary_count);
 
     prev_time = system_time;
 
 
-    if(stationary_count > 35) {
+    if(stationary_count > 25) {
+      //system_data[8] = 0;
       system_data[8] += yaw_fix * 90;
       turns_done++;
       stationary_count = 0;
+
+      // TODO
+      // Check with zeroing the angle ?????
+
+
+      // uint16_t side_val = read_side_ir();
+
+      // if (side_val < 350) {
+      //   yaw_fix = -1;
+      // }
+      // else{
+      //   yaw_fix = 1;
+      // }
     }
 
     if(turns_done > 1){
@@ -78,14 +95,18 @@ int main(){
       yaw_fix *= -1;
     }
     
-    set_servo_A(90 + 2.2 * system_data[8]);
-    set_servo_B(-90 + 2.2 * system_data[8]);
+    set_servo_A(-90 + 2 * system_data[8]);
+    set_servo_B(90 + 2 * system_data[8]);
 
-    Serial.println("Yaw: ");
-    Serial.println(system_data[8]);
-    Serial.println("IMU X accel: ");
-    Serial.println(imu_data[0]);
 
   }
+  
+  
+  // Turn off everything
+  /*set_lift(false);
+  set_fan_A(0);
+  set_fan_B(0);
+  set_servo_A(0);
+  set_servo_B(0);*/
   
 }
